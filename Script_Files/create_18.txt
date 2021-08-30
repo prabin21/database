@@ -1,0 +1,180 @@
+--Group : 18
+--CREATE COMMAND'S
+--@F:\Database\Script_Files\create_18.txt
+
+
+--CREATE tables
+
+CREATE TABLE teams(
+	team_id NUMBER(2), 
+	department_name VARCHAR2(15), 
+	contact_number VARCHAR2(20) NOT NULL);
+
+CREATE TABLE customers(
+	cus_id NUMBER(7),
+	cus_firstname VARCHAR2(20),
+	cus_lastname VARCHAR2(20),
+	date_of_birth DATE,
+	gender CHAR(1) DEFAULT 'M',
+	email_id VARCHAR2(30),
+	phone_number VARCHAR2(20) NOT NULL, 
+	street_name VARCHAR2(20),
+	city VARCHAR2(15),
+	country VARCHAR2(15));
+
+CREATE TABLE locations(
+	location_id NUMBER(8),
+	location_name VARCHAR2(20) NOT NULL,
+	city VARCHAR2(15),
+	province VARCHAR2(15),
+	country VARCHAR2(15));
+
+CREATE TABLE extras(
+	extra_id NUMBER(4),
+	extra_type VARCHAR2(20),
+	price NUMBER(7,2));
+
+CREATE TABLE campers(
+	camper_id NUMBER(2),
+	camper_type VARCHAR2(15),
+	category VARCHAR2(10),
+	description VARCHAR2(75));
+
+CREATE TABLE staff(
+	staff_id NUMBER(4),
+	staff_firstname VARCHAR2(20),
+	staff_lastname VARCHAR2(20),
+	date_of_birth DATE,		
+	gender CHAR(1) DEFAULT 'M',
+	email_id VARCHAR2(30),
+	phone_number VARCHAR2(20) NOT NULL,
+	street_name VARCHAR2(20),
+	city VARCHAR2(15),
+	country VARCHAR(15),
+	joined_date DATE NOT NULL,
+	team_id NUMBER(2) NOT NULL);
+
+CREATE TABLE pitches (
+	pitch_id NUMBER(4),
+	pitch_type VARCHAR2(20),
+	hookup VARCHAR2(7),
+	area_sqkm NUMBER(5),
+	theme VARCHAR2(15),
+	price NUMBER(7,2),
+	location_id NUMBER(8) NOT NULL);
+
+CREATE TABLE bookings(
+	booking_id NUMBER(4),
+	booking_date DATE DEFAULT SYSDATE,
+	advance_payment NUMBER(7,2) DEFAULT 0,
+	departure DATE NOT NULL, 
+	arrival DATE,
+	due_date DATE DEFAULT (SYSDATE+15),
+	staff_id NUMBER(4) NOT NULL,
+	cus_id NUMBER(7) NOT NULL);
+
+CREATE TABLE confirmations(
+	confirmation_id NUMBER(4),
+	confirm_date DATE,
+	cancellation CHAR(1) DEFAULT 'N',
+	booking_id NUMBER(4) NOT NULL);
+
+CREATE TABLE payments(
+	booking_id NUMBER(4) NOT NULL,  
+	cus_id NUMBER(7) NOT NULL,
+	bill_number NUMBER(8) ,
+	payment_mode VARCHAR2(10),	
+	total_amount NUMBER(7,2),
+	discount_amount NUMBER(7,2) DEFAULT 0,
+	final_amount NUMBER(7,2), 	
+	paid_date DATE);
+
+CREATE TABLE receipts(
+	receipt_number NUMBER(8),
+	receipt_date DATE DEFAULT SYSDATE,
+	booking_id NUMBER(4) NOT NULL,
+	cus_id NUMBER(7) NOT NULL);
+
+CREATE TABLE booking_details(
+	booking_id NUMBER(4) NOT NULL,
+	camper_id NUMBER(4),
+	pitch_id NUMBER(8),
+	extra_id NUMBER(4));
+
+
+ 
+-- ALETR/MODIFY tables
+
+ALTER TABLE customers ADD (
+	postal_code VARCHAR2(5));
+
+ALTER TABLE staff ADD (
+	fax_number VARCHAR2(15));
+
+ALTER TABLE teams MODIFY (
+	department_name NOT NULL);
+
+ALTER TABLE pitches MODIFY(
+	theme VARCHAR2(25));
+
+ALTER TABLE staff DROP 
+	(date_of_birth);
+
+ALTER TABLE staff ADD(
+	dob DATE);
+
+	
+
+--CREATE SEQUENCE
+
+CREATE SEQUENCE seq_teams
+INCREMENT BY 10
+START WITH 10;
+
+CREATE SEQUENCE seq_customers
+INCREMENT BY 1
+START WITH 1841001
+NOCYCLE;
+
+CREATE SEQUENCE seq_locations
+INCREMENT BY 1
+START WITH 1
+MINVALUE 1;
+
+CREATE SEQUENCE seq_extras
+INCREMENT BY 1
+START WITH 101;
+
+CREATE SEQUENCE seq_campers
+INCREMENT BY 1
+START WITH 1;
+
+CREATE SEQUENCE seq_staff
+INCREMENT BY 10
+START WITH 1000
+MAXVALUE 9990;
+
+CREATE SEQUENCE seq_pitches
+INCREMENT BY 101
+START WITH 101
+MINVALUE 0;
+
+CREATE SEQUENCE seq_bookings
+INCREMENT BY 1
+START WITH 2001
+CACHE 3;
+
+CREATE SEQUENCE seq_confirmations
+INCREMENT BY 1
+START WITH 1101;
+
+CREATE SEQUENCE seq_payments
+INCREMENT BY 1
+START WITH 98410001;
+
+CREATE SEQUENCE seq_receipts
+INCREMENT BY 1
+START WITH 3301
+MINVALUE 3301
+MAXVALUE 99999999
+CYCLE;

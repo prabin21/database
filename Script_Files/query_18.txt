@@ -1,0 +1,298 @@
+--Group : 18
+--QUERY COMMAND'S
+
+
+--All the records from one table
+
+SELECT * 
+FROM teams;
+
+SELECT * 
+FROM customers;
+
+SELECT * 
+FROM locations;
+
+SELECT * 
+FROM extras;
+
+SELECT *  
+FROM campers;  
+
+SELECT * 
+FROM staff;
+
+SELECT * 
+FROM pitches;
+
+SELECT *
+FROM bookings;
+
+SELECT * 
+FROM confirmations;
+
+SELECT * 
+FROM payments;
+
+SELECT *
+FROM receipts;
+
+SELECT * 
+FROM booking_details;
+
+
+
+--A projection of columns 
+
+SELECT team_id, department_name,contact_number
+FROM teams
+ORDER BY  department_name DESC;
+
+SELECT cus_id,cus_firstname,cus_lastname,gender,phone_number,country
+FROM customers
+ORDER BY cus_firstname ASC;
+
+SELECT location_id, location_name, province
+FROM locations
+ORDER BY location_id; --DEFAULT order is ASC in Oracle Database 12c 12.2.0.1.0
+
+SELECT extra_type, price
+FROM extras
+ORDER BY 2 DESC;
+
+SELECT camper_id, category, camper_type , description 
+FROM campers
+ORDER BY category ASC NULLS LAST;
+
+SELECT staff_id , staff_firstname, staff_lastname, gender, phone_number, email_id
+FROM staff
+ORDER BY staff_lastname DESC;
+
+SELECT pitch_type, theme, price 
+FROM pitches
+ORDER BY 1 DESC ,3;
+
+SELECT booking_id, booking_date, departure, arrival, cus_id
+FROM bookings
+ORDER BY departure ASC;
+
+SELECT confirmation_id, confirm_date, cancellation 
+FROM confirmations
+ORDER BY confirm_date NULLS LAST;
+
+SELECT bill_number, final_amount, final_amount + discount_amount total, paid_date
+FROM payments
+ORDER BY 4 ASC NULLS LAST;
+
+SELECT receipt_number, receipt_date
+FROM receipts
+ORDER BY receipt_date;
+
+SELECT booking_id, camper_id, pitch_id, extra_id
+FROM booking_details
+ORDER BY booking_id DESC;
+
+
+
+--Restriction queries with multiple clauses 
+
+SELECT * 
+FROM customers
+WHERE country = 'UK'
+AND gender = 'M';
+
+SELECT cus_id, cus_firstname, to_char(date_of_birth, 'YEAR') "date of birth", cus_lastname, date_of_birth, gender, phone_number, city, country 
+FROM customers
+WHERE (SYSDATE - date_of_birth)>7300    --age approx. 20 years
+AND country != 'UK'
+OR gender = 'M'; 
+
+SELECT location_name, city, province,country 
+FROM locations
+WHERE province LIKE '%IRE'
+AND country ='ENGLAND';
+
+SELECT extra_id, extra_type, price
+FROM extras
+WHERE price BETWEEN 20 AND 60
+AND extra_type LIKE '_O%';
+
+SELECT extra_type, price
+FROM extras 
+WHERE price > 25;
+
+SELECT camper_type, category, description
+FROM campers
+WHERE description LIKE '%< 18%'
+OR category = 'BASIC';
+
+SELECT staff_id, staff_firstname, staff_lastname, phone_number
+FROM staff
+WHERE country LIKE 'U_'
+AND (SYSDATE-joined_date) > 3650;  --3650 is approx. 10 years
+
+SELECT pitch_type, area_sqkm, price
+FROM pitches
+WHERE hookup != 'FULL'
+OR area_sqkm NOT BETWEEN 3 and 4.5;
+
+SELECT *
+FROM extras
+WHERE price <> 70;
+
+SELECT *
+FROM pitches 
+WHERE area_sqkm NOT IN('4.5','3')
+OR pitch_type = 'TENT';
+
+SELECT bill_number, final_amount, cus_id
+FROM payments 
+WHERE paid_date IS NULL;
+
+SELECT booking_id, arrival,staff_id, cus_id
+FROM bookings
+WHERE booking_date BETWEEN '01-MAY-2018' AND SYSDATE;
+
+
+
+--Join queries with pertinent data from 2 and 3 tables
+
+/*
+SELECT b.booking_date, b.booking_date, b.departure, p.final_amount, p.paid_date 
+FROM bookings b, payments p 
+WHERE b.booking_id = p.booking_id;
+*/
+
+SELECT b.booking_date, b.departure, p.final_amount, p.paid_date 
+FROM bookings b INNER JOIN payments p 
+ON b.booking_id = p.booking_id;
+
+SELECT t.department_name, s.staff_id, s.staff_firstname, s.staff_lastname
+FROM teams t FULL OUTER JOIN staff s 
+ON  t.team_id = s.team_id;
+
+SELECT s.staff_id, s.staff_firstname, s.staff_lastname, b.booking_id, b.booking_date
+FROM staff s JOIN bookings b --INNER/NATURAL JOIN is default JOIN
+ON  s.staff_id = b.staff_id
+WHERE s.country != 'UK';
+
+SELECT e.extra_type, bd.booking_id, bd.pitch_id
+FROM extras e LEFT JOIN booking_details bd
+ON e.extra_id = bd.extra_id;
+
+SELECT p.bill_number, p.final_amount, p.paid_date, r.receipt_number, r.receipt_date
+FROM receipts r RIGHT JOIN payments p 
+ON p.booking_id = r.booking_id;
+
+
+
+SELECT t.department_name, s.staff_id, s.staff_firstname, s.staff_lastname, b.booking_id, b.booking_date
+FROM teams t JOIN staff s
+ON  t.team_id = s.team_id
+JOIN bookings b
+ON s.staff_id = b.staff_id;
+
+SELECT c.cus_id, c.cus_firstname, c.cus_lastname, b.booking_id, b.booking_date, b.departure, cf.cancellation, cf.confirm_date
+FROM customers c JOIN bookings b
+ON  c.cus_id = b.cus_id
+JOIN confirmations cf
+ON  b.booking_id = cf.booking_id;
+
+SELECT c.cus_id, c.cus_firstname, c.cus_lastname, p.final_amount, p.paid_date, r.receipt_number, r.receipt_date
+FROM customers c JOIN payments p
+ON  c.cus_id = p.cus_id
+JOIN receipts r
+ON p.booking_id = r.booking_id
+WHERE p.final_amount > 150;
+
+SELECT l.location_id, l.location_name, p.pitch_type, p.theme, p.price, b.booking_id
+FROM locations l JOIN pitches p 
+ON l.location_id = p.location_id
+JOIN booking_details b
+ON p.pitch_id = b.pitch_id;
+
+
+SELECT
+ c.cus_id, c.cus_firstname, c.cus_lastname, b.booking_id, b.booking_date, b.departure, s.staff_id,
+ l.location_name, l.city, p.pitch_type, e.extra_type, cm.cancellation, pm.final_amount
+FROM customers c 
+JOIN bookings b
+ON  c.cus_id = b.cus_id
+JOIN confirmations cm
+ON b.booking_id = cm.booking_id
+JOIN payments pm 
+ON b.booking_id = pm.booking_id
+JOIN staff s
+ON s.staff_id = b.staff_id
+JOIN booking_details bd
+ON  b.booking_id = bd.booking_id
+JOIN pitches p
+ON  p.pitch_id = bd.pitch_id
+JOIN locations l 
+ON l.location_id = p.location_id
+JOIN extras e
+ON e.extra_id = bd.extra_id;
+
+
+
+SELECT country, COUNT(cus_id) "total customers"
+FROM customers
+GROUP BY country; 
+
+SELECT COUNT(DISTINCT(country)) "total countries involved :"
+FROM customers;
+
+SELECT SUM(final_amount) "total transaction :"
+FROM payments;
+
+SELECT pitch_type, AVG(price)
+FROM pitches
+GROUP BY pitch_type
+HAVING AVG(price)<50;
+
+
+
+SELECT extra_id "extras utilized"  
+FROM extras
+INTERSECT
+SELECT extra_id
+FROM booking_details;
+
+SELECT pitch_id "leftout pitches"
+FROM pitches
+MINUS
+SELECT pitch_id
+FROM booking_details;
+
+SELECT country "associated countries"
+FROM customers
+UNION 
+SELECT country
+FROM staff
+UNION 
+SELECT country
+FROM locations;
+
+SELECT city "total cities(UK)"
+FROM customers
+WHERE country = 'UK'
+UNION ALL
+SELECT city
+FROM staff
+WHERE country = 'UK';
+
+
+
+--run-time parameters
+
+SELECT * 
+FROM staff
+WHERE gender = '&neuter';
+
+SELECT DISTINCT(postal_code) 
+FROM customers
+WHERE country = '&country';
+
+SELECT * 
+FROM customers
+WHERE cus_firstname LIKE '&NAME%';

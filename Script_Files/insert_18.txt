@@ -1,0 +1,504 @@
+﻿--Group : 18
+--INSERT COMMAND'S
+--@F:\Database\Script_Files\insert_18.txt
+
+
+--inserting INTO teams
+
+INSERT INTO teams
+VALUES(seq_teams.NEXTVAL, 'MANAGEMENT', '617 384 938');
+
+INSERT INTO teams
+VALUES(seq_teams.NEXTVAL, 'FINANCE', '617 217 394');
+
+INSERT INTO teams 
+VALUES (seq_teams.NEXTVAL, 'SERVICES', '617 983 506');
+
+INSERT INTO teams
+VALUES(seq_teams.NEXTVAL, 'RESEARCH', '617 053 291');
+
+INSERT INTO teams
+VALUES(seq_teams.NEXTVAL, 'MARKETING', '617 032 345');
+
+INSERT INTO teams
+VALUES(seq_teams.NEXTVAL, 'IT', '617 043 324');
+
+
+UPDATE teams SET
+contact_number = '617 309 248'
+WHERE department_name = 'MARKETING';
+
+
+
+
+--inserting INTO customers
+
+INSERT INTO customers 
+(cus_id, cus_firstname, cus_lastname, date_of_birth, gender, email_id, phone_number, street_name, city, country, postal_code)
+VALUES (seq_customers.NEXTVAL, 'JOHN', 'WATSON', '13-AUG-1983',	'M','Johnwatson@gmail.com', '617 256 549', 'BAY ROAD', 'BOSTON', 'UK', '+44');
+
+INSERT INTO customers  --'gender' is not inserted because value is automatically set to DEFAULT 'M' 
+(cus_id	,cus_firstname, cus_lastname, date_of_birth, email_id, phone_number, street_name, city, country, postal_code)
+VALUES (seq_customers.NEXTVAL, 'HARRY', 'ANDREW', '19-MAR-1991', 'Ha1991@gmail.com', '213 335 8493', 'IMPERIAL BLVD', 'LOS ANGLES', 'USA', '+1');
+
+INSERT INTO customers
+(cus_id, cus_firstname, cus_lastname, date_of_birth, gender, email_id, phone_number, street_name, city, country, postal_code)
+VALUES(seq_customers.NEXTVAL, 'ALMA', 'JUNIOR', '23-JAN-1995', 'F', 'Alma.Jun@yahoo.com', '714 356 1273', 'VALLEY WAY', 'HULL', 'UK', '+44');
+
+INSERT INTO customers
+(cus_id, cus_firstname, cus_lastname, date_of_birth, gender, email_id, phone_number, street_name, city, country, postal_code)
+VALUES(seq_customers.NEXTVAL,'AMENDA', 'PETERSEN', '7-JUL-1988', 'F', 'Pertersen000@gmail.com' ,'713 726 3862',	'ELM STREET', 'TORONTO', 'CANADA', '+1');
+
+INSERT INTO customers	--value of email_id is not inserted although it's unique but it accepts NULL values.
+(cus_id, cus_firstname, cus_lastname, date_of_birth, gender, phone_number, street_name, city, country, postal_code)
+VALUES(seq_customers.NEXTVAL, 'DANIEL', 'JOHNSON', '2-FEB-2002', 'M', '05064 923787', '456 CHAMPS', 'PARIS', 'FRANCE', '+33');
+
+INSERT INTO customers	
+(cus_id, cus_firstname, cus_lastname, date_of_birth, email_id, phone_number, street_name, city, country, postal_code)
+VALUES(seq_customers.NEXTVAL, 'ADAMS', 'DON','8-JAN-1981','Don1981.@hotmail.com', '213 337 8288', 'ALL LANE' ,'SEATTLE', 'USA', '+1');
+
+INSERT INTO customers	
+(cus_id, cus_firstname, cus_lastname, date_of_birth, gender, email_id, phone_number, city, country, postal_code)
+VALUES(seq_customers.NEXTVAL, 'ANDREA', 'WHITE', '16-DEC-1997', 'F', 'WhiteAnd@gmail.com', '01604 962136', 'MILTON', 'UK', '+44');
+
+INSERT INTO customers 
+(cus_id, cus_firstname, cus_lastname, date_of_birth, gender, email_id, phone_number, street_name, city, country, postal_code)
+VALUES(seq_customers.NEXTVAL, 'ANGELA', 'MATHEW', '28-NOV-1999', 'F', 'Angela1999@gmail.com', '09318 912773', 'KEUNGSGATAN', 'STOCKHOLM', 'SWEDEN', '+46');
+
+/*
+INSERT INTO customers  --violates CHECK CONSTRAINT : CHECK (gender IN ('M','F'))
+(cus_id, cus_firstname, cus_lastname, date_of_birth, gender, email_id, phone_number, street_name, country, postal_code)
+VALUES(seq_customers.NEXTVAL, 'JENNY', 'SABATH', '21-JUN-1992', 'FEMALE', 'Jenny21@gmail.com', '09318 983287', 'CALIFORNIA', 'USA', '+1');
+*/
+
+
+
+
+--inserting INTO locations
+
+INSERT INTO locations
+VALUES(seq_locations.NEXTVAL, 'BEADNELL BAY', 'BEADNELL', 'NORTHUMBERLAND', 'ENGLAND');
+
+INSERT INTO locations
+VALUES(seq_locations.NEXTVAL, 'BLACKMORE', 'HANLEY SWAN', 'WORCESTERSHIRE', 'ENGLAND');
+
+INSERT INTO locations
+VALUES(seq_locations.NEXTVAL, 'ALTON TOWER', 'ALTON', 'STAFFORDSHIRE', 'ENGLAND');
+
+INSERT INTO locations
+VALUES(seq_locations.NEXTVAL, 'SHAPWICK', 'SEDGEMOOR', 'SOMERSET', 'UK');
+
+INSERT INTO locations
+VALUES(seq_locations.NEXTVAL, 'STANDLAKE', 'OXFORD', 'OXOFORDSHIRE', 'UK');
+
+INSERT INTO locations
+VALUES(seq_locations.NEXTVAL, 'SANDRINGHAM', 'KINGS LYNN', 'NORFOLK', 'UK');
+
+INSERT INTO locations
+VALUES(seq_locations.NEXTVAL, 'NORMANS BAY', 'PEVENSEY', 'EAST SUSSEX', 'UK');
+
+/* --violates UPPER CONSTRAINT : CHECK (city = UPPER(city))
+INSERT INTO locations
+VALUES(seq_locations.NEXTVAL, 'dunoon', 'argyll', 'argyll', 'scotland');
+*/
+
+INSERT INTO locations
+VALUES(seq_locations.NEXTVAL, 'DUNOON', 'ARGYLL', 'ARGYLL', 'SCOTLAND');
+
+DELETE 
+FROM locations
+WHERE country = 'SCOTLAND';
+
+
+
+
+--inserting INTO extras
+
+INSERT INTO extras
+VALUES(seq_extras.NEXTVAL, 'MUSIC', 3);
+
+INSERT INTO extras
+VALUES(seq_extras.NEXTVAL, 'BONFIRE', 10);
+
+INSERT INTO extras
+VALUES(seq_extras.NEXTVAL, 'CYCLING', 10);
+
+INSERT INTO extras
+VALUES(seq_extras.NEXTVAL, 'FISHING', 25);
+
+INSERT INTO extras
+VALUES(seq_extras.NEXTVAL, 'WIFI', 20);
+
+INSERT INTO extras 
+VALUES(seq_extras.NEXTVAL, 'GOLF', 30); 
+
+INSERT INTO extras
+VALUES(seq_extras.NEXTVAL, 'TRANSPORT', 20);
+
+INSERT INTO extras
+VALUES(seq_extras.NEXTVAL, 'CATERING', 70);
+
+INSERT INTO extras
+VALUES(seq_extras.NEXTVAL, 'SWIMMING', 20);
+
+INSERT INTO extras
+VALUES(seq_extras.NEXTVAL, 'BAR', 90);
+
+
+DELETE 
+FROM extras
+WHERE extra_type = 'BAR';
+
+
+
+
+--inserting INTO campers
+
+INSERT INTO campers
+(camper_id, camper_type, category, description)
+VALUES(seq_campers.NEXTVAL, 'ADULT', 'BASIC', 'PEOPLE OF AGE > 18 WITH AT MOST 5 MEMBERS');
+
+INSERT INTO campers
+(camper_id, camper_type, category, description)
+VALUES(seq_campers.NEXTVAL, 'ADULT', 'ADVANCED', 'PEOPLE OF AGE > 18 WITH AT LEAST 6 MEMBERS AND PETS');
+
+INSERT INTO campers
+(camper_id, camper_type, category, description)
+VALUES(seq_campers.NEXTVAL, 'CHILDREN', 'BASIC', 'PEOPLE OF AGE < 18 WITH AT MOST 5 MEMBERS');
+
+INSERT INTO campers
+(camper_id, camper_type, category, description)
+VALUES(seq_campers.NEXTVAL, 'CHILDREN', 'ADVANCED', 'PEOPLE OF AGE < 18 WITH AT LEAST 6 MEMBERS');
+
+INSERT INTO campers
+(camper_id, camper_type, category, description)
+VALUES(seq_campers.NEXTVAL, 'FAMILY', 'BASIC', 'INCLUDES 6 FAMILY MEMBERS');
+
+INSERT INTO campers
+(camper_id, camper_type, category, description)
+VALUES(seq_campers.NEXTVAL, 'FAMILY', 'ADVANCED', 'INCLUDES MORE THAN 6 FAMILY MEMBERS AND PETS');
+
+INSERT INTO campers
+(camper_id, camper_type, description)
+VALUES(seq_campers.NEXTVAL, 'COUPLE', 'MEMBER OF 2');
+
+
+
+
+--inserting INTO staff
+
+INSERT INTO staff
+(staff_id, staff_firstname, staff_lastname, dob, gender, email_id, phone_number, fax_number, street_name, city, country, joined_date, team_id)
+VALUES( seq_staff.NEXTVAL, 'TOM', 'JACKSON', '01-JAN-1983', 'M', 'JacksonHot.@gmail.com', '0121 496 4356', '6091328705', 'BROAD ST.', 'BIRMINGHAM', 'UK', '06-JAN-2003', 20);
+
+INSERT INTO staff
+(staff_id, staff_firstname, staff_lastname, dob, gender, email_id, phone_number, fax_number, street_name, city, country, joined_date, team_id)
+VALUES(seq_staff.NEXTVAL, 'SALLY', 'WILLSON', '02-JUN-1980', 'F', 'Sally1980@gmail.com', '0121 496 1024', '0449950342', 'BRISTOL ST.', 'BIRMINGHAM', 'UK', '10-NOV-2008', 20);
+
+INSERT INTO staff
+(staff_id, staff_firstname, staff_lastname, dob, gender, email_id, phone_number, fax_number, street_name, city, country, joined_date, team_id)
+VALUES(seq_staff.NEXTVAL, 'FRANK', 'SCOTT', '07-NOV-1978', 'M', 'ScottF@gmail.com', '0161 437 8237', '7859342940', 'CHAPEL ST.', 'MANCHESTER', 'UK', '23-AUG-2008', 50);
+
+INSERT INTO staff
+(staff_id, staff_firstname, staff_lastname, dob, gender, email_id, phone_number, street_name, city, country, joined_date, team_id)
+VALUES(seq_staff.NEXTVAL, 'FREDDY', 'MARTIN', '21-DEC-1975', 'M', 'Martin980@hotmail.com', '0151 345 921', 'WATER ST.', 'LIVERPOOL', 'UK', '23-NOV-2013', 30);
+
+INSERT INTO staff
+(staff_id, staff_firstname, staff_lastname, dob, gender, email_id, phone_number, street_name, city, country, joined_date, team_id)
+VALUES(seq_staff.NEXTVAL, 'JENNY', 'BROWN', '30-NOV-1984', 'F', 'JB1984@yahoo.com', '020 3983 8974', 'SUTHERLAND ST.', 'LONDON', 'UK', '21-JAN-2012', 10);
+
+/*
+INSERT INTO staff  -- violates UNIQUE CONSTRAINT : UNIQUE (fax_number);
+(staff_id, staff_firstname, staff_lastname, dob, gender, email_id, phone_number, fax_number, street_name, city, country, joined_date, team_id)
+VALUES(seq_staff.NEXTVAL, 'NANCY', 'CLARKE', '06-FEB-1979', 'F', 'ClarkeCricket06@gmail.com', '01604 839321', '7859342940', 'CASTLE ST.', 'NORTHAMPTON', 'UK', '01-JUN-2015', 10);
+*/
+
+INSERT INTO staff
+(staff_id, staff_firstname, staff_lastname, dob, gender, email_id, phone_number, fax_number, street_name, city, country, joined_date, team_id)
+VALUES(seq_staff.NEXTVAL, 'NANCY', 'CLARKE', '06-FEB-1979', 'F', 'ClarkeCricket06@gmail.com', '01604 839321', '3842004389', 'CASTLE ST.', 'NORTHAMPTON', 'UK', '01-JUN-2015', 10);
+
+INSERT INTO staff
+(staff_id, staff_firstname, staff_lastname, dob,gender, email_id, phone_number, street_name, city, country, joined_date, team_id)
+VALUES(seq_staff.NEXTVAL, 'KANE', 'SMITH', '18-NOV-1981', 'M', 'KaneNov18@gmail.com', '00 31 20 323 5698', 'OUDEWAAL ST.', 'AMSTERDAM', 'NETHERLAND', '08-JUL-2013', 10);
+
+INSERT INTO staff
+(staff_id, staff_firstname, staff_lastname, dob, gender, email_id, phone_number, street_name, city, country, joined_date, team_id)
+VALUES(seq_staff.NEXTVAL, 'SHANE', 'WALTON', '01-JAN-1989','M', 'Sw01JAN@gmail.com', '035 478 9823', 'GREEK ST.', 'DUBLIN', 'IRELAND', '08-DEC-2005', 10);
+
+INSERT INTO staff
+(staff_id, staff_firstname, staff_lastname, dob, gender, email_id, phone_number, street_name, city, country, joined_date, team_id)
+VALUES(seq_staff.NEXTVAL, 'WILSON', 'MARTIN', '09-JAN-1979','M', 'Wilmar@gmail.com', '035 442 9457', 'GREEK ST.', 'DUBLIN', 'IRELAND', '29-JAN-2003', 60);
+
+/* -- violates NOT NULL CONSTRAINT 
+INSERT INTO staff
+(staff_id, staff_firstname, staff_lastname, dob, gender, email_id, street_name, city, country, joined_date, team_id)
+VALUES(seq_staff.NEXTVAL, 'WILSON', 'MARTIN', '09-JAN-1979','M', 'Wilmar@gmail.com', 'GREEK ST.', 'DUBLIN', 'IRELAND', '29-JAN-2003', 60);
+*/
+
+
+
+
+--inserting INTO pitches
+
+INSERT INTO pitches
+VALUES(seq_pitches.NEXTVAL, 'TENT', 'FULL', 3, 'MOUNTAINOUS', 35, 2);
+
+INSERT INTO pitches
+VALUES(seq_pitches.NEXTVAL, 'MOTORHOME', 'PARTIAL', 6, 'GREENERY', 30, 3);
+
+INSERT INTO pitches
+VALUES(seq_pitches.NEXTVAL, 'CARAVAN', 'PARTIAL', 4.5, 'REMOTE LOCATION', 15, 7);
+
+INSERT INTO pitches
+VALUES(seq_pitches.NEXTVAL, 'RESORT', 'FULL',6, 'BEACH SIDE', 70, 1);
+
+INSERT INTO pitches
+VALUES(seq_pitches.NEXTVAL, 'CARAVAN', 'FULL', 9, 'CROWDED', 15, 4);
+
+INSERT INTO pitches
+VALUES(seq_pitches.NEXTVAL, 'TENT', 'FULL', 4.5, 'BEACH SIDE', 50, 5);
+
+INSERT INTO pitches
+VALUES(seq_pitches.NEXTVAL, 'MOTORHOME', 'FULL', 3, 'FOREST', 35, 6);
+
+INSERT INTO pitches
+VALUES(seq_pitches.NEXTVAL, 'TENT', 'PARTIAL', 3.5, 'GREENERY', 25, 3);
+
+INSERT INTO pitches
+VALUES(seq_pitches.NEXTVAL, 'RESORT', 'FULL', 4, 'MOUNTAINOUS', 40, 2);
+
+INSERT INTO pitches
+VALUES(seq_pitches.NEXTVAL, 'LODGE', 'PARTIAL',	3, 'FOREST', 20, 6);  
+
+INSERT INTO pitches
+VALUES(seq_pitches.NEXTVAL, 'CARAVAN', 'PARTIAL', 4, 'CROWDED',	30,	4);
+
+
+
+
+--inserting INTO bookings
+
+INSERT INTO bookings
+(booking_id, booking_date, advance_payment, departure, arrival, due_date, staff_id, cus_id)
+VALUES(seq_bookings.NEXTVAL, '12-APR-2018', 20, '17-APR-2018', '20-APR-2018', '27-APR-2018', 1040, 1841001);
+
+INSERT INTO bookings
+(booking_id, booking_date, departure, arrival, due_date, staff_id, cus_id)
+VALUES(seq_bookings.NEXTVAL, '20-APR-2018', '23-APR-2018', '25-APR-2018', '05-MAY-2018', 1060, 1841002);
+
+INSERT INTO bookings
+(booking_id, booking_date, departure, arrival, due_date, staff_id, cus_id)
+VALUES(seq_bookings.NEXTVAL, '01-MAY-2018', '02-MAY-2018', '07-MAY-2018', '16-MAY-2018', 1060, 1841003);
+
+INSERT INTO bookings
+(booking_id, booking_date, advance_payment, departure, arrival, due_date, staff_id, cus_id)
+VALUES(seq_bookings.NEXTVAL, '09-MAY-2018', 30, '19-MAY-2018', '22-MAY-2018', '24-MAY-2018', 1050, 1841004);
+
+INSERT INTO bookings
+(booking_id, booking_date, advance_payment, departure, arrival, due_date, staff_id, cus_id)
+VALUES(seq_bookings.NEXTVAL, '14-MAY-2018', 20, '15-MAY-2018', '16-MAY-2018', '29-MAY-2018', 1070, 1841005);
+
+INSERT INTO bookings
+(booking_id, booking_date, departure, arrival, due_date, staff_id, cus_id)
+VALUES(seq_bookings.NEXTVAL, '16-MAY-2018', '18-MAY-2018', '25-MAY-2018', '31-MAY-2018', 1040, 1841006);
+
+INSERT INTO bookings
+(booking_id, booking_date, advance_payment, departure, arrival, due_date, staff_id, cus_id)
+VALUES(seq_bookings.NEXTVAL, '06-JUN-2018', 50, '21-JUN-2018', '24-JUN-2018', '21-JUN-2018', 1040, 1841007);
+
+INSERT INTO bookings
+(booking_id, booking_date, advance_payment, departure, arrival, due_date, staff_id, cus_id)
+VALUES(seq_bookings.NEXTVAL, '10-JUN-2018', 20, '15-JUN-2018', '19-JUN-2018', '25-JUN-2018', 1050, 1841008);
+
+INSERT INTO bookings
+(booking_id, advance_payment, departure, arrival, staff_id, cus_id)
+VALUES(seq_bookings.NEXTVAL, 20, '15-AUG-2018', '22-AUG-2018', 1070, 1841002);
+
+INSERT INTO bookings
+(booking_id, advance_payment, departure, arrival, staff_id, cus_id)
+VALUES(seq_bookings.NEXTVAL, 20, '20-AUG-2018', '22-AUG-2018', 1050, 1841005);
+
+
+
+
+--inserting INTO confirmations
+
+INSERT INTO confirmations
+VALUES (seq_confirmations.NEXTVAL, '14-APR-2018', 'N', 2001);
+
+INSERT INTO confirmations
+VALUES(seq_confirmations.NEXTVAL, '20-APR-2018', 'N', 2002);
+
+INSERT INTO confirmations
+VALUES(seq_confirmations.NEXTVAL, '01-MAY-2018', 'N', 2003);
+
+INSERT INTO confirmations
+VALUES(seq_confirmations.NEXTVAL, '14-MAY-2018', 'N', 2004);
+
+INSERT INTO confirmations
+VALUES(seq_confirmations.NEXTVAL, '15-MAY-2018', 'N', 2005);
+
+INSERT INTO confirmations
+VALUES(seq_confirmations.NEXTVAL, '16-MAY-2018', 'N', 2006);
+
+INSERT INTO confirmations
+VALUES(seq_confirmations.NEXTVAL, '15-JUN-2018', 'N', 2007);
+
+INSERT INTO confirmations
+VALUES(seq_confirmations.NEXTVAL, '12-JUN-2018', 'N', 2008);
+
+INSERT INTO confirmations
+(confirmation_id, cancellation, booking_id)
+VALUES(seq_confirmations.NEXTVAL, 'Y', 2009);
+
+INSERT INTO confirmations
+(confirmation_id, cancellation, booking_id)
+VALUES(seq_confirmations.NEXTVAL, 'Y',	2010);
+
+
+
+
+--inserting INTO payments
+
+INSERT INTO payments --value in 'final_amount' is not inserted because it is updated automatically
+(booking_id, cus_id, bill_number, payment_mode, total_amount, paid_date)
+VALUES ( 2001, 1841001, seq_payments.NEXTVAL, 'CASH', 115, '14-APR-2018');
+
+INSERT INTO payments
+(booking_id, cus_id, bill_number, payment_mode, total_amount, paid_date)
+VALUES ( 2002,1841002,seq_payments.NEXTVAL, 'CHECK'	,100, '20-APR-2018');
+
+INSERT INTO payments
+(booking_id, cus_id, bill_number, payment_mode, total_amount,discount_amount, paid_date)
+VALUES ( 2003, 1841003, seq_payments.NEXTVAL, 'CASH', 210, 20, '01-MAY-2018');
+
+INSERT INTO payments
+(booking_id, cus_id, bill_number, payment_mode, total_amount, discount_amount, paid_date)
+VALUES ( 2004, 1841004, seq_payments.NEXTVAL, 'CREDIT', 216, 8, '14-MAY-2018');
+
+INSERT INTO payments
+(booking_id, cus_id, bill_number, payment_mode, total_amount, paid_date)
+VALUES (2005, 1841005,seq_payments.NEXTVAL,'DEBIT', 190, '15-MAY-2018');
+
+INSERT INTO payments
+(booking_id, cus_id, bill_number, payment_mode, total_amount, discount_amount, paid_date)
+VALUES ( 2006, 1841006, seq_payments.NEXTVAL, 'CHECK', 265,	25,	'16-MAY-2018');
+
+INSERT INTO payments
+(booking_id, cus_id, bill_number, payment_mode, total_amount, discount_amount, paid_date)
+VALUES ( 2007, 1841007, seq_payments.NEXTVAL, 'PAYPAL', 255, 20, '15-JUN-2018');
+
+INSERT INTO payments
+(booking_id, cus_id, bill_number, payment_mode, total_amount, discount_amount, paid_date)
+VALUES ( 2008, 1841008,seq_payments.NEXTVAL, 'CREDIT', 130 , 10, '12-JUN-2018');
+
+INSERT INTO payments
+(booking_id, cus_id, bill_number, total_amount,discount_amount)
+VALUES (2009, 1841002, seq_payments.NEXTVAL, 175, 15);
+
+INSERT INTO payments
+(booking_id, cus_id, bill_number, total_amount)
+VALUES ( 2010, 1841005, seq_payments.NEXTVAL, 200);
+
+
+UPDATE payments --automatically updates 'final_amount' using total_amount,discount_amount from 'payments' and advance_payment from 'bookings'
+SET payments.final_amount = (SELECT((payments.total_amount - bookings.advance_payment) - payments.discount_amount)
+FROM bookings
+WHERE bookings.booking_id = payments.booking_id);
+
+
+
+
+--inserting INTO receipts
+
+INSERT INTO receipts 
+VALUES (seq_receipts.NEXTVAL, '14-APR-2018', 2001,	1841001);
+
+INSERT INTO receipts 
+VALUES	(seq_receipts.NEXTVAL, '20-APR-2018', 2002,	1841002);
+		
+INSERT INTO receipts
+VALUES	(seq_receipts.NEXTVAL, '01-MAY-2018', 2003, 1841003);
+		
+INSERT INTO receipts	
+VALUES	(seq_receipts.NEXTVAL, '14-MAY-2018', 2004, 1841004);
+		
+INSERT INTO receipts  
+VALUES	(seq_receipts.NEXTVAL, '15-MAY-2018', 2005, 1841005);
+		
+INSERT INTO receipts	
+VALUES	(seq_receipts.NEXTVAL,'16-MAY-2018', 2006, 1841006);
+
+INSERT INTO receipts 
+VALUES	(seq_receipts.NEXTVAL, '15-JUN-2018', 2007, 1841007);
+
+INSERT INTO receipts 
+VALUES	(seq_receipts.NEXTVAL, '12-JUN-2018', 2008, 1841008);
+
+
+
+
+
+--inserting INTO booking_details
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2001, 5, 808, 102);
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2001, 5, 808, 106);
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2002, 1, 303, 108);
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2003, 7, 909, 103);
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2004, 2, 707, 101);
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2005, 6, 606, 105);
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2005, 6, 606, 104);
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2006, 7, 101, 107);
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2007, 5, 404, 104);
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2007, 5, 404, 102);
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2007, 5, 404, 103);
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2008, 1, 202, 103);
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2009, 1, 505, 108);
+
+INSERT INTO booking_details
+(booking_id, camper_id, pitch_id, extra_id)
+VALUES(2010, 4, 101, 106);
+
+
+
+DELETE -- deletes 'IT' from 'teams' which then cascade deletes referencing row from child table(staff)
+FROM teams
+WHERE department_name = 'IT';

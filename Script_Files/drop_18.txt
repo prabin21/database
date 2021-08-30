@@ -1,0 +1,207 @@
+--Group : 18
+--DROP COMMAND'S
+--@F:\Database\Script_Files\drop_18.txt
+
+
+--droping FOREIGN KEYS
+
+ALTER TABLE booking_details
+DROP CONSTRAINT fk_bd_bookings;
+
+ALTER TABLE booking_details
+DROP CONSTRAINT fk_bd_campers;
+
+ALTER TABLE booking_details
+DROP CONSTRAINT fk_bd_pitches;
+
+ALTER TABLE booking_details
+DROP CONSTRAINT fk_bd_extras;
+
+ALTER TABLE receipts
+DROP CONSTRAINT fk_r_payments;
+
+ALTER TABLE bookings
+DROP CONSTRAINT fk_b_staff;
+
+ALTER TABLE bookings
+DROP CONSTRAINT fk_b_customers;
+
+ALTER TABLE  payments
+DROP CONSTRAINT fk_p_bookings;
+
+ALTER TABLE payments
+DROP CONSTRAINT fk_p_customers;
+
+ALTER TABLE staff
+DROP CONSTRAINT fk_s_teams;
+
+ALTER TABLE pitches
+DROP CONSTRAINT fk_p_locations;
+
+ALTER TABLE confirmations
+DROP CONSTRAINT fk_c_bookings;
+
+
+
+--droping PRIMARY KEYS 
+
+ALTER TABLE booking_details
+DROP CONSTRAINT pk_booking_details;
+
+ALTER TABLE receipts
+DROP CONSTRAINT pk_receipts;
+
+ALTER TABLE confirmations
+DROP CONSTRAINT pk_confirmations;
+
+ALTER TABLE pitches
+DROP CONSTRAINT pk_pitches;
+
+ALTER TABLE campers
+DROP CONSTRAINT pk_campers;
+
+ALTER TABLE extras
+DROP CONSTRAINT pk_extras;
+
+ALTER TABLE payments
+DROP CONSTRAINT pk_payments;
+
+ALTER TABLE locations
+DROP CONSTRAINT pk_locations;
+
+ALTER TABLE bookings
+DROP CONSTRAINT pk_bookings;
+
+ALTER TABLE customers
+DROP CONSTRAINT pk_customers;
+
+ALTER TABLE staff
+DROP CONSTRAINT pk_staff;
+
+ALTER TABLE teams
+DROP CONSTRAINT pk_teams;
+
+
+
+--droping CHECK CONSTRAINTS
+
+ALTER TABLE customers
+DROP CONSTRAINT ck_cus_firstname; 
+
+ALTER TABLE customers
+DROP CONSTRAINT ck_cus_lastname; 
+
+ALTER TABLE customers
+DROP CONSTRAINT ck_street_name; 
+
+ALTER TABLE customers
+DROP CONSTRAINT ck_city; 
+
+ALTER TABLE customers
+DROP CONSTRAINT ck_customer_country; 
+
+ALTER TABLE locations
+DROP CONSTRAINT ck_location_city; 
+
+ALTER TABLE locations
+DROP CONSTRAINT ck_province; 
+
+ALTER TABLE locations
+DROP CONSTRAINT ck_location_country; 
+
+ALTER TABLE campers
+DROP CONSTRAINT ck_camper_type;
+
+ALTER TABLE campers
+DROP CONSTRAINT ck_category;
+
+ALTER TABLE campers
+DROP CONSTRAINT ck_description;
+
+ALTER TABLE staff
+DROP CONSTRAINT ck_staff_firstname; 
+
+ALTER TABLE staff
+DROP CONSTRAINT ck_staff_lastname; 
+
+ALTER TABLE staff
+DROP CONSTRAINT ck_staff_street_name; 
+
+ALTER TABLE staff
+DROP CONSTRAINT ck_staff_city; 
+
+ALTER TABLE staff
+DROP CONSTRAINT ck_staff_country; 
+
+ALTER TABLE pitches
+DROP CONSTRAINT ck_pitch_type; 
+
+ALTER TABLE pitches
+DROP CONSTRAINT ck_theme; 
+
+ALTER TABLE payments
+DROP CONSTRAINT ck_payments; 
+
+
+ALTER TABLE customers
+DROP CONSTRAINT ck_customer_gender; 
+
+ALTER TABLE staff
+DROP CONSTRAINT ck_staff_gender; 
+
+ALTER TABLE pitches
+DROP CONSTRAINT ck_hookup; 
+
+ALTER TABLE confirmations
+DROP CONSTRAINT ck_confirmations; 
+
+
+
+--droping UNIQUE CONSTRAINTS
+
+ALTER TABLE customers
+DROP CONSTRAINT u_customers; 
+
+ALTER TABLE staff
+DROP CONSTRAINT u_email_id; 
+
+ALTER TABLE staff
+DROP CONSTRAINT u_fax_number; 
+
+ALTER TABLE payments
+DROP CONSTRAINT u_payments; 
+
+
+
+--droping SEQUENCE
+
+DROP SEQUENCE seq_teams;
+DROP SEQUENCE seq_customers;
+DROP SEQUENCE seq_locations;
+DROP SEQUENCE seq_extras;
+DROP SEQUENCE seq_campers;
+DROP SEQUENCE seq_staff;
+DROP SEQUENCE seq_pitches;
+DROP SEQUENCE seq_bookings;
+DROP SEQUENCE seq_confirmations;
+DROP SEQUENCE seq_payments;
+DROP SEQUENCE seq_receipts;
+
+
+
+--TABLE DROPS
+
+DROP TABLE booking_details;
+DROP TABLE receipts;
+DROP TABLE confirmations;
+DROP TABLE pitches;
+DROP TABLE campers;
+DROP TABLE extras;
+DROP TABLE payments;
+DROP TABLE locations;
+DROP TABLE bookings;
+DROP TABLE customers;
+DROP TABLE staff;
+DROP TABLE teams;
+
+PURGE RECYCLEBIN;

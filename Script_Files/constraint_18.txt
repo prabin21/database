@@ -1,0 +1,244 @@
+--Group : 18
+--CONSTRAINTS COMMAND'S
+--@F:\Database\Script_Files\constraint_18.txt
+
+
+--PRIMARY KEYS
+
+ALTER TABLE teams
+ADD CONSTRAINT pk_teams
+PRIMARY KEY (team_id);
+
+ALTER TABLE customers
+ADD CONSTRAINT pk_customers
+PRIMARY KEY (cus_id);
+
+ALTER TABLE locations
+ADD CONSTRAINT pk_locations
+PRIMARY KEY (location_id);
+
+ALTER TABLE extras
+ADD CONSTRAINT pk_extras
+PRIMARY KEY (extra_id);
+
+ALTER TABLE campers
+ADD CONSTRAINT pk_campers
+PRIMARY KEY (camper_id);
+
+ALTER TABLE staff
+ADD CONSTRAINT pk_staff
+PRIMARY KEY (staff_id);
+
+ALTER TABLE pitches
+ADD CONSTRAINT pk_pitches
+PRIMARY KEY (pitch_id);
+
+ALTER TABLE bookings
+ADD CONSTRAINT pk_bookings
+PRIMARY KEY (booking_id);
+
+ALTER TABLE confirmations
+ADD CONSTRAINT pk_confirmations
+PRIMARY KEY (confirmation_id);
+
+ALTER TABLE payments
+ADD CONSTRAINT pk_payments
+PRIMARY KEY (booking_id,cus_id);
+
+ALTER TABLE receipts
+ADD CONSTRAINT pk_receipts
+PRIMARY KEY (receipt_number);
+
+ALTER TABLE booking_details
+ADD CONSTRAINT pk_booking_details
+PRIMARY KEY (booking_id,camper_id,pitch_id,extra_id);
+
+
+
+--FOREIGN KEYS
+
+ALTER TABLE staff
+ADD CONSTRAINT fk_s_teams
+FOREIGN KEY (team_id)
+REFERENCES teams(team_id)
+ON DELETE CASCADE;
+
+ALTER TABLE pitches
+ADD CONSTRAINT fk_p_locations
+FOREIGN KEY (location_id)
+REFERENCES locations(location_id);
+
+ ALTER TABLE bookings
+ADD CONSTRAINT fk_b_staff
+FOREIGN KEY (staff_id)
+REFERENCES staff (staff_id);
+
+ALTER TABLE bookings
+ADD CONSTRAINT fk_b_customers
+FOREIGN KEY (cus_id)
+REFERENCES customers(cus_id);
+
+ALTER TABLE confirmations
+ADD CONSTRAINT fk_c_bookings
+FOREIGN KEY (booking_id)
+REFERENCES bookings (booking_id);
+
+ALTER TABLE  payments
+ADD CONSTRAINT fk_p_bookings
+FOREIGN KEY (booking_id)
+REFERENCES bookings (booking_id);
+
+ALTER TABLE payments
+ADD CONSTRAINT fk_p_customers
+FOREIGN KEY (cus_id)
+REFERENCES customers (cus_id);
+
+ALTER TABLE receipts
+ADD CONSTRAINT fk_r_payments
+FOREIGN KEY (booking_id, cus_id)
+REFERENCES payments(booking_id, cus_id);
+
+ALTER TABLE booking_details
+ADD CONSTRAINT fk_bd_bookings
+FOREIGN KEY (booking_id)
+REFERENCES bookings (booking_id);
+
+ALTER TABLE booking_details
+ADD CONSTRAINT fk_bd_campers
+FOREIGN KEY (camper_id)
+REFERENCES campers (camper_id);
+
+ALTER TABLE booking_details
+ADD CONSTRAINT fk_bd_pitches
+FOREIGN KEY (pitch_id)
+REFERENCES pitches(pitch_id);
+
+ALTER TABLE booking_details
+ADD CONSTRAINT fk_bd_extras
+FOREIGN KEY (extra_id)
+REFERENCES extras(extra_id);
+
+
+
+--CHECK CONSTRAINTS
+
+ALTER TABLE customers
+ADD CONSTRAINT ck_cus_firstname
+CHECK (cus_firstname = UPPER(cus_firstname));
+
+ALTER TABLE customers
+ADD CONSTRAINT ck_cus_lastname
+CHECK (cus_lastname = UPPER(cus_lastname));
+
+ALTER TABLE customers
+ADD CONSTRAINT ck_street_name
+CHECK (street_name = UPPER(street_name));
+
+ALTER TABLE customers
+ADD CONSTRAINT ck_city
+CHECK (city = UPPER(city));
+
+ALTER TABLE customers
+ADD CONSTRAINT ck_customer_country
+CHECK (country = UPPER(country));
+
+ALTER TABLE locations
+ADD CONSTRAINT ck_location_city
+CHECK (city = UPPER(city));
+
+ALTER TABLE locations
+ADD CONSTRAINT ck_province
+CHECK (province = UPPER(province));
+
+ALTER TABLE locations
+ADD CONSTRAINT ck_location_country
+CHECK (city = UPPER(city));
+
+ALTER TABLE campers
+ADD CONSTRAINT ck_camper_type
+CHECK (camper_type = UPPER(camper_type));
+
+ALTER TABLE campers
+ADD CONSTRAINT ck_category
+CHECK (category = UPPER(category));
+
+ALTER TABLE campers
+ADD CONSTRAINT ck_description
+CHECK (description = UPPER(description));
+
+ALTER TABLE staff
+ADD CONSTRAINT ck_staff_firstname
+CHECK (staff_firstname = UPPER(staff_firstname));
+
+ALTER TABLE staff
+ADD CONSTRAINT ck_staff_lastname
+CHECK (staff_lastname = UPPER(staff_lastname));
+
+ALTER TABLE staff
+ADD CONSTRAINT ck_staff_street_name
+CHECK (street_name = UPPER(street_name));
+
+ALTER TABLE staff
+ADD CONSTRAINT ck_staff_city
+CHECK (city = UPPER(city));
+
+ALTER TABLE staff
+ADD CONSTRAINT ck_staff_country
+CHECK (country = UPPER(country));
+
+ALTER TABLE pitches
+ADD CONSTRAINT ck_pitch_type
+CHECK (pitch_type = UPPER(pitch_type));
+
+ALTER TABLE pitches
+ADD CONSTRAINT ck_theme
+CHECK (theme = UPPER(theme));
+
+ALTER TABLE payments
+ADD CONSTRAINT ck_payments
+CHECK (payment_mode = UPPER(payment_mode));
+
+
+ALTER TABLE customers
+ADD CONSTRAINT ck_customer_gender
+CHECK (gender IN ('M','F'));
+
+ALTER TABLE staff
+ADD CONSTRAINT ck_staff_gender
+CHECK (gender IN ('M','F'));
+
+ALTER TABLE pitches
+ADD CONSTRAINT ck_hookup
+CHECK (hookup IN ('PARTIAL','FULL'));
+
+ALTER TABLE confirmations
+ADD CONSTRAINT ck_confirmations
+CHECK (cancellation IN ('Y','N'));
+
+ALTER TABLE payments
+ADD CONSTRAINT ck_payment_mode
+CHECK (payment_mode IN ('CASH','CREDIT','DEBIT'));
+
+
+ALTER TABLE payments 
+DISABLE CONSTRAINT ck_payment_mode;
+
+
+
+--UNIQUE CONSTRAINTS
+
+ALTER TABLE customers
+ADD CONSTRAINT u_customers
+UNIQUE (email_id);
+
+ALTER TABLE staff
+ADD CONSTRAINT u_email_id
+UNIQUE (email_id);
+
+ALTER TABLE staff
+ADD CONSTRAINT u_fax_number
+UNIQUE (fax_number);
+
+ALTER TABLE payments
+ADD CONSTRAINT u_payments
+UNIQUE (bill_number);
